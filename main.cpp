@@ -87,7 +87,7 @@ class SLL{
         }
         
         curr = head;
-        for (int i = 0; i < size; i++){
+        for (int i = 0; i < size; i++){		//adding back in sorted order
             
             for(int j = countArr[i]; j > 0; j--){
                 
