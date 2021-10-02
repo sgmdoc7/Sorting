@@ -77,18 +77,11 @@ class SLL{
         return size;
     }
 
-    void push(Node** head_ref, int new_data)
+    void push(Node** head_ref, int new_data) // add to beginning of list
     {
-        /* allocate node */
         Node* new_node = new Node();
-    
-        /* put in the data */
         new_node->data = new_data;
-    
-        /* link the old list off the new node */
         new_node->next = (*head_ref);
-    
-        /* move the head to point to the new node */
         (*head_ref) = new_node;
     }
     
@@ -126,50 +119,47 @@ class SLL{
 
     /* MERGE SORT BEGIN */
 
-    void MergeSort(Node** headRef)
+    void mergeSort(Node** headRef)
     {
         Node* head = *headRef;
         Node* a;
         Node* b;
     
-        /* Base case -- length 0 or 1 */
         if ((head == NULL) || (head->next == NULL)) {
             return;
         }
     
-        /* Split head into 'a' and 'b' sublists */
-        FrontBackSplit(head, &a, &b);
+        //Split head into sublists
+        split(head, &a, &b);
     
-        /* Recursively sort the sublists */
-        MergeSort(&a);
-        MergeSort(&b);
+        mergeSort(&a);
+        mergeSort(&b);
     
-        /* answer = merge the two sorted lists together */
-        *headRef = SortedMerge(a, b);
+        // merge the two sorted lists together 
+        *headRef = mergeSorted(a, b);
     }
     
-    Node* SortedMerge(Node* a, Node* b)
+    Node* mergeSorted(Node* a, Node* b)
     {
         Node* result = NULL;
     
-        /* Base cases */
         if (a == NULL)
             return (b);
         else if (b == NULL)
             return (a);
     
-        /* Pick either a or b, and recur */
+        // pick and recur
         if (a->data <= b->data) {
             result = a;
-            result->next = SortedMerge(a->next, b);
+            result->next = mergeSorted(a->next, b);
         }
         else {
             result = b;
-            result->next = SortedMerge(a, b->next);
+            result->next = mergeSorted(a, b->next);
         }
         return (result);
     }
-    void FrontBackSplit(Node* source,
+    void split(Node* source,
                     Node** frontRef, Node** backRef)
     {
         Node* fast;
@@ -177,7 +167,6 @@ class SLL{
         slow = source;
         fast = source->next;
     
-        /* Advance 'fast' two nodes, and advance 'slow' one node */
         while (fast != NULL) {
             fast = fast->next;
             if (fast != NULL) {
@@ -186,8 +175,7 @@ class SLL{
             }
         }
     
-        /* 'slow' is before the midpoint in the list, so split it in two
-        at that point. */
+        //so split it in two at midpoint
         *frontRef = source;
         *backRef = slow->next;
         slow->next = NULL;
@@ -219,7 +207,7 @@ int main(){
     mergeList.push(&a, 3);
     mergeList.push(&a, 2);
  
-    mergeList.MergeSort(&a);
+    mergeList.mergeSort(&a);
  
     cout << "Merge sorted Linked List is: \n";
     mergeList.printList2(a);
