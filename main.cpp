@@ -9,7 +9,6 @@ struct Node{
         Node* next;
     };
 
-
 class SLL{
     
     Node* head;
@@ -112,11 +111,14 @@ class SLL{
             }
         }
     }
+    /* QUICK SORT BEGIN */
 
     void quickSort(){
 
     }
 
+    /* QUICK SORT END */
+    // ------------------------
     /* MERGE SORT BEGIN */
 
     void mergeSort(Node** headRef)
@@ -159,13 +161,13 @@ class SLL{
         }
         return (result);
     }
-    void split(Node* source,
+    void split(Node* origin,
                     Node** frontRef, Node** backRef)
     {
         Node* fast;
         Node* slow;
-        slow = source;
-        fast = source->next;
+        slow = origin;
+        fast = origin->next;
     
         while (fast != NULL) {
             fast = fast->next;
@@ -176,7 +178,7 @@ class SLL{
         }
     
         //so split it in two at midpoint
-        *frontRef = source;
+        *frontRef = origin;
         *backRef = slow->next;
         slow->next = NULL;
     }
@@ -194,7 +196,7 @@ int main(){
     //put whatever you want after this, ignore the srand function (i.e. leave it there)
      /* Start with the empty list */
 
-    /* MERGE SORT */
+    /* MERGE SORT TEST*/
 
     Node* res = NULL;
     Node* a = NULL;
@@ -209,19 +211,21 @@ int main(){
  
     mergeList.mergeSort(&a);
  
-    cout << "Merge sorted Linked List is: \n";
+    cout << "Merge sorted Linked List is: " << endl;
     mergeList.printList2(a);
-    cout << " \n " ;
+    cout << endl;
+  
 
     /* MERGE SORT END */
-
-    /* COUNTING SORT BEGIN */
+    //-------------------------
+    /* COUNTING SORT TEST */
  
     SLL list;
     list.populateList(10);
+    cout << "Linked List before counting sort is: " << endl;
     list.printList();
     list.countingSort();
-    cout << "Sorted:" << endl;
+    cout << "Counting sorted Linked List is: " << endl;
     list.printList();
 
     /* COUNTING SORT END */
