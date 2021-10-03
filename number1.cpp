@@ -133,35 +133,38 @@ class SLL{
 
     Node* partition(Node** headNew, Node** newEnd, Node* head, Node* end)
     {
-        Node* pivot = end;
-        Node *preced = NULL, *tail = pivot, *current = head;
-        while (current != pivot) {
-            if (current->data < pivot->data) { 
-                if ((*headNew) == NULL)
-                    *headNew = current;
+        Node* hubpiv = end;
+        Node *preced = NULL, *tail = hubpiv, *on = head;
+        while (on != hubpiv) {
+
+            if (on->data < hubpiv->data) { 
+                if (*headNew == NULL)
+                    *headNew = on;
     
-                preced = current;
-                current = current->next;
+                preced = on;
+                on = on->next;
             }
-            else // If current node is greater than pivot
+            else // if the node if larger than the current node
             {
                 // Move current node next after tail and change tail
                 if (preced)
-                    preced->next = current->next;
-                Node* temp1 = current->next;
-                current->next = NULL;
-                tail->next = current;
-                tail = current;
-                current = temp1;
+                    preced -> next = on -> next;
+                Node* temp1 = on->next;
+                on -> next = NULL;
+
+                tail -> next = on;
+                tail = on;
+
+                on = temp1;
             }
         }
     
         if ((*headNew) == NULL)
-            *headNew = pivot;
+            *headNew = hubpiv;
     
         *newEnd = tail;
     
-        return pivot;
+        return hubpiv;
     }
  
     Node* recursionQS(Node* head, Node* end)
@@ -207,33 +210,35 @@ class SLL{
         Node* p; 
         Node* r; 
     
-        if ((head->next == NULL)|| head == NULL)) {
+        if ((head->next == NULL)|| head == NULL) {
             return;
         }
-        //Split head -> sublists
+        //Split into sublists
         split(head, &p, &r);
         mergeSort(&p);
         mergeSort(&r);
-        // merge the two sorted lists together 
-        *refHead = mergeSorted(p, r);
+
+        *refHead = mSorted(p, r); // two lists come together
     }
     
-    Node* mergeSorted(Node* p, Node* r)
+    Node* mSorted(Node* p, Node* r)
     {
         Node* answer = NULL;
+
+
         if (p == NULL)
-            return (r);
+            return r;
         else if (r == NULL)
-            return (p);
+            return p;
     
         // pick and use recursion
         if (p->data <= r->data) {
             answer = p;
-            answer->next = mergeSorted(p->next, r);
+            answer->next = mSorted(p->next, r);
         }
         else {
             answer = r;
-            answer->next = mergeSorted(p, r->next);
+            answer->next = mSorted(p, r->next);
         }
         return (answer);
     }
