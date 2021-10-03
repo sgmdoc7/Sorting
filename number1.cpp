@@ -41,7 +41,8 @@ class SLL{
         Node* traverser = head;
         while (traverser != NULL){
             
-            cout << traverser->data << endl;
+            cout << traverser->data; 
+            cout << " ";
             traverser = traverser->next;
         }
     }
