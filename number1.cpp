@@ -102,6 +102,11 @@ class SLL{
         return current;
     }
     
+    /* BUBBLE SORT BEGIN */
+    
+    /* BUBBLE SORT END */
+    // ------------------------
+    /* COUNTING SORT BEGIN */
     void countingSort(){
     
         //counting number of possible numbers
@@ -129,6 +134,8 @@ class SLL{
             }
         }
     }
+    /* COUNTING SORT END */
+    // ------------------------
     /* QUICK SORT BEGIN */
 
     Node* partition(Node** headNew, Node** newEnd, Node* head, Node* end)
