@@ -120,54 +120,48 @@ class SLL{
     }
     /* QUICK SORT BEGIN */
 
-    Node* partition(Node* head, Node* end,
-                       Node** newHead,
-                       Node** newEnd)
+    Node* partition(Node** newHead, Node** newEnd, Node* head, Node* end)
     {
         Node* pivot = end;
-        Node *prev = NULL, *cur = head, *tail = pivot;
-    
-        while (cur != pivot) {
-            if (cur->data < pivot->data) {
-                // Node with value less than pivot becomes the head
+        Node *previous = NULL, *tail = pivot, *current = head;
+        while (current != pivot) {
+            if (current->data < pivot->data) { // Node with value < pivot becomes the head
                 if ((*newHead) == NULL)
-                    (*newHead) = cur;
+                    *newHead = current;
     
-                prev = cur;
-                cur = cur->next;
+                previous = current;
+                current = current->next;
             }
             else // If current node is greater than pivot
             {
                 // Move current node next after tail and swap tail
-                if (prev)
-                    prev->next = cur->next;
-                Node* tmp = cur->next;
-                cur->next = NULL;
-                tail->next = cur;
-                tail = cur;
-                cur = tmp;
+                if (previous)
+                    previous->next = current->next;
+                Node* temp1 = current->next;
+                current->next = NULL;
+                tail->next = current;
+                tail = current;
+                current = temp1;
             }
         }
     
         if ((*newHead) == NULL)
-            (*newHead) = pivot;
+            *newHead = pivot;
     
-        (*newEnd) = tail;
+        *newEnd = tail;
     
         return pivot;
     }
  
-    Node* quickSortRecur(Node* head,
-                                Node* end)
+    Node* recursionQS(Node* head, Node* end)
     {
         if (!head || head == end)
             return head;
     
-        Node *newHead = NULL, *newEnd = NULL;
+        Node *newHead = NULL, *newTail = NULL;
     
         // partition list
-        Node* pivot
-            = partition(head, end, &newHead, &newEnd);
+        Node* pivot = partition(&newHead, &newTail, head, end);
     
 
         if (newHead != pivot) {
@@ -178,22 +172,21 @@ class SLL{
             tmp->next = NULL;
     
             // Recursion for section of list before pivot
-            newHead = quickSortRecur(newHead, tmp);
+            newHead = recursionQS(newHead, tmp);
     
    
             tmp = getTail(newHead);
             tmp->next = pivot;
         }
     
-        pivot->next = quickSortRecur(pivot->next, newEnd);
+        pivot->next = recursionQS(pivot->next, newTail);
     
         return newHead;
     }
     
-    void quickSort(Node** headRef)
+    void quickSort(Node** refHead)
     {
-        (*headRef)
-            = quickSortRecur(*headRef, getTail(*headRef));
+        (*refHead) = recursionQS(*refHead, getTail(*refHead));
         return;
     }
 
@@ -201,48 +194,48 @@ class SLL{
     // ------------------------
     /* MERGE SORT BEGIN */
 
-    void mergeSort(Node** headRef)
+    void mergeSort(Node** refHead)
     {
-        Node* head = *headRef;
-        Node* a;
-        Node* b;
+        Node* head = *refHead;
+        Node* p; 
+        Node* r; 
     
         if ((head == NULL) || (head->next == NULL)) {
             return;
         }
     
         //Split head into sublists
-        split(head, &a, &b);
+        split(head, &p, &r);
     
-        mergeSort(&a);
-        mergeSort(&b);
+        mergeSort(&p);
+        mergeSort(&r);
     
         // merge the two sorted lists together 
-        *headRef = mergeSorted(a, b);
+        *refHead = mergeSorted(p, r);
     }
     
-    Node* mergeSorted(Node* a, Node* b)
+    Node* mergeSorted(Node* p, Node* r)
     {
         Node* result = NULL;
     
-        if (a == NULL)
-            return (b);
-        else if (b == NULL)
-            return (a);
+        if (p == NULL)
+            return (r);
+
+        else if (r == NULL)
+            return (p);
     
         // pick and recur
-        if (a->data <= b->data) {
-            result = a;
-            result->next = mergeSorted(a->next, b);
+        if (p->data <= r->data) {
+            result = p;
+            result->next = mergeSorted(p->next, r);
         }
         else {
-            result = b;
-            result->next = mergeSorted(a, b->next);
+            result = r;
+            result->next = mergeSorted(p, r->next);
         }
         return (result);
     }
-    void split(Node* origin,
-                    Node** frontRef, Node** backRef)
+    void split(Node* origin, Node** frontRef, Node** backRef)
     {
         Node* fast;
         Node* slow;
