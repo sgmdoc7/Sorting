@@ -275,10 +275,10 @@ int main(){
 
     SLL quickList;
     quickList.push(&f, 5);
-    quickList.push(&f, 20);
-    quickList.push(&f, 4);
+    quickList.push(&f, 21);
+    quickList.push(&f, 2);
     quickList.push(&f, 3);
-    quickList.push(&f, 30);
+    quickList.push(&f, 29);
  
     cout << "Linked List before quick sort is: " << endl;
     quickList.printList2(f);
@@ -299,11 +299,11 @@ int main(){
     Node* a = NULL;
  
     SLL mergeList;
-    mergeList.push(&a, 15);
-    mergeList.push(&a, 10);
+    mergeList.push(&a, 17);
+    mergeList.push(&a, 8);
     mergeList.push(&a, 5);
-    mergeList.push(&a, 20);
-    mergeList.push(&a, 3);
+    mergeList.push(&a, 22);
+    mergeList.push(&a, 4);
     mergeList.push(&a, 2);
 
     cout << "Linked List before merge sort is: " << endl;
