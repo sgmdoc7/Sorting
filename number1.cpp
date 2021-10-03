@@ -136,7 +136,7 @@ class SLL{
         Node* pivot = end;
         Node *previous = NULL, *tail = pivot, *current = head;
         while (current != pivot) {
-            if (current->data < pivot->data) { // Node with value < pivot becomes the head
+            if (current->data < pivot->data) { 
                 if ((*newHead) == NULL)
                     *newHead = current;
     
@@ -145,7 +145,7 @@ class SLL{
             }
             else // If current node is greater than pivot
             {
-                // Move current node next after tail and swap tail
+                // Move current node next after tail and change tail
                 if (previous)
                     previous->next = current->next;
                 Node* temp1 = current->next;
@@ -168,13 +168,10 @@ class SLL{
     {
         if (!head || head == end)
             return head;
-    
         Node *newHead = NULL, *newTail = NULL;
     
         // partition list
         Node* pivot = partition(&newHead, &newTail, head, end);
-    
-
         if (newHead != pivot) {
           
             Node* tmp = newHead;
@@ -184,8 +181,6 @@ class SLL{
     
             // Recursion for section of list before pivot
             newHead = recursionQS(newHead, tmp);
-    
-   
             tmp = getTail(newHead);
             tmp->next = pivot;
         }
@@ -214,13 +209,10 @@ class SLL{
         if ((head == NULL) || (head->next == NULL)) {
             return;
         }
-    
         //Split head into sublists
         split(head, &p, &r);
-    
         mergeSort(&p);
         mergeSort(&r);
-    
         // merge the two sorted lists together 
         *refHead = mergeSorted(p, r);
     }
@@ -228,10 +220,8 @@ class SLL{
     Node* mergeSorted(Node* p, Node* r)
     {
         Node* result = NULL;
-    
         if (p == NULL)
             return (r);
-
         else if (r == NULL)
             return (p);
     
@@ -248,23 +238,22 @@ class SLL{
     }
     void split(Node* origin, Node** frontRef, Node** backRef)
     {
-        Node* fast;
-        Node* slow;
-        slow = origin;
-        fast = origin->next;
+        Node* rabbit;
+        Node* turtle;
+        turtle = origin;
+        rabbit = origin->next;
     
-        while (fast != NULL) {
-            fast = fast->next;
-            if (fast != NULL) {
-                slow = slow->next;
-                fast = fast->next;
+        while (rabbit != NULL) {
+            rabbit = rabbit->next;
+            if (rabbit != NULL) {
+                turtle = turtle->next;
+                rabbit = rabbit->next;
             }
         }
-    
         //so split it in two at midpoint
         *frontRef = origin;
-        *backRef = slow->next;
-        slow->next = NULL;
+        *backRef = turtle->next;
+        turtle->next = NULL;
     }
 
     /* MERGE SORT END */
