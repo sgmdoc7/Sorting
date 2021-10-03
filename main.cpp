@@ -46,7 +46,7 @@ class SLL{
         }
     }
 
-    void printList2(Node* node)
+    void printList2(Node* node) // another way to print list
     {
         while (node != NULL) {
             cout << node->data << " ";
@@ -83,6 +83,13 @@ class SLL{
         new_node->next = (*head_ref);
         (*head_ref) = new_node;
     }
+
+    Node* getTail(Node* cur)
+    {
+        while (cur != NULL && cur->next != NULL)
+            cur = cur->next;
+        return cur;
+    }
     
     void countingSort(){
     
@@ -113,8 +120,81 @@ class SLL{
     }
     /* QUICK SORT BEGIN */
 
-    void quickSort(){
+    Node* partition(Node* head, Node* end,
+                       Node** newHead,
+                       Node** newEnd)
+    {
+        Node* pivot = end;
+        Node *prev = NULL, *cur = head, *tail = pivot;
+    
+        while (cur != pivot) {
+            if (cur->data < pivot->data) {
+                // Node with value less than pivot becomes the head
+                if ((*newHead) == NULL)
+                    (*newHead) = cur;
+    
+                prev = cur;
+                cur = cur->next;
+            }
+            else // If current node is greater than pivot
+            {
+                // Move current node next after tail and swap tail
+                if (prev)
+                    prev->next = cur->next;
+                Node* tmp = cur->next;
+                cur->next = NULL;
+                tail->next = cur;
+                tail = cur;
+                cur = tmp;
+            }
+        }
+    
+        if ((*newHead) == NULL)
+            (*newHead) = pivot;
+    
+        (*newEnd) = tail;
+    
+        return pivot;
+    }
+ 
+    Node* quickSortRecur(Node* head,
+                                Node* end)
+    {
+        if (!head || head == end)
+            return head;
+    
+        Node *newHead = NULL, *newEnd = NULL;
+    
+        // partition list
+        Node* pivot
+            = partition(head, end, &newHead, &newEnd);
+    
 
+        if (newHead != pivot) {
+          
+            Node* tmp = newHead;
+            while (tmp->next != pivot)
+                tmp = tmp->next;
+            tmp->next = NULL;
+    
+            // Recursion for section of list before pivot
+            newHead = quickSortRecur(newHead, tmp);
+    
+   
+            tmp = getTail(newHead);
+            tmp->next = pivot;
+        }
+    
+        pivot->next = quickSortRecur(pivot->next, newEnd);
+    
+        return newHead;
+    }
+    
+    void quickSort(Node** headRef)
+    {
+        (*headRef)
+            = quickSortRecur(*headRef, getTail(*headRef));
+        return;
     }
 
     /* QUICK SORT END */
@@ -196,6 +276,30 @@ int main(){
     //put whatever you want after this, ignore the srand function (i.e. leave it there)
      /* Start with the empty list */
 
+    /* QUICK SORT TEST*/
+    cout << endl;
+    Node* f = NULL;
+
+    SLL quickList;
+    quickList.push(&f, 5);
+    quickList.push(&f, 20);
+    quickList.push(&f, 4);
+    quickList.push(&f, 3);
+    quickList.push(&f, 30);
+ 
+    cout << "Linked List before quick sort is: " << endl;
+    quickList.printList2(f);
+    cout << endl;
+ 
+    quickList.quickSort(&f);
+ 
+    cout << "Quick sorted Linked List is: " << endl;
+    quickList.printList2(f);
+    cout << endl;
+    cout << endl;
+
+    /* QUICK SORT END*/
+    //-----------------------
     /* MERGE SORT TEST*/
 
     Node* res = NULL;
@@ -208,11 +312,16 @@ int main(){
     mergeList.push(&a, 20);
     mergeList.push(&a, 3);
     mergeList.push(&a, 2);
+
+    cout << "Linked List before merge sort is: " << endl;
+    mergeList.printList2(a);
+    cout << endl;
  
     mergeList.mergeSort(&a);
  
     cout << "Merge sorted Linked List is: " << endl;
     mergeList.printList2(a);
+    cout << endl;
     cout << endl;
   
 
@@ -227,6 +336,8 @@ int main(){
     list.countingSort();
     cout << "Counting sorted Linked List is: " << endl;
     list.printList();
+    cout << endl;
+    cout << endl;
 
     /* COUNTING SORT END */
 
