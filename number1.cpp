@@ -275,17 +275,19 @@ class SLL{
 int main(){
     
     srand(unsigned(time(NULL)));
+    int s;
     
     //put whatever you want after this, ignore the srand function (i.e. leave it there)
      /* Start with the empty list */
-
+    cout << "What size would you like the arrays? (10,100,500,5000, or 25000)" << endl;
+    cin >> s;
 
     /* QUICK SORT TEST*/
     cout << endl;
     Node* f = NULL;
 
     SLL quickList;
-    quickList.populateList2(&f, 10);
+    quickList.populateList2(&f, s);
     
     cout << "Linked List before quick sort is: " << endl;
     quickList.printList2(f);
@@ -306,7 +308,7 @@ int main(){
     Node* a = NULL;
  
     SLL mergeList;
-    mergeList.populateList2(&a, 10);
+    mergeList.populateList2(&a, s);
 
     cout << "Linked List before merge sort is: " << endl;
     mergeList.printList2(a);
@@ -325,7 +327,7 @@ int main(){
     /* COUNTING SORT TEST */
  
     SLL list;
-    list.populateList(10);
+    list.populateList(s);
     cout << "Linked List before counting sort is: " << endl;
     list.printList();
     cout << endl;
