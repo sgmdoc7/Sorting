@@ -207,10 +207,10 @@ class SLL{
         Node* p; 
         Node* r; 
     
-        if ((head == NULL) || (head->next == NULL)) {
+        if ((head->next == NULL)|| head == NULL)) {
             return;
         }
-        //Split head into sublists
+        //Split head -> sublists
         split(head, &p, &r);
         mergeSort(&p);
         mergeSort(&r);
