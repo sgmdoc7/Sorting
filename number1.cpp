@@ -54,12 +54,22 @@ class SLL{
         }
     }
     
+
     void populateList(int size){ //makes list of preferred size
         
         for (int i = 0; i < size; i++){
             
             int dataValue = rand() % (size * 2);
             this->appendList(dataValue);
+        }
+    }
+
+    void populateList2(Node** head_ref,int size){ //makes list of preferred size
+        
+        for (int i = 0; i < size; i++){
+            
+            int dataValue = rand() % (size * 2);
+            this->push(head_ref,dataValue);
         }
     }
     
@@ -269,17 +279,14 @@ int main(){
     //put whatever you want after this, ignore the srand function (i.e. leave it there)
      /* Start with the empty list */
 
+
     /* QUICK SORT TEST*/
     cout << endl;
     Node* f = NULL;
 
     SLL quickList;
-    quickList.push(&f, 5);
-    quickList.push(&f, 21);
-    quickList.push(&f, 2);
-    quickList.push(&f, 3);
-    quickList.push(&f, 29);
- 
+    quickList.populateList2(&f, 10);
+    
     cout << "Linked List before quick sort is: " << endl;
     quickList.printList2(f);
     cout << endl;
@@ -299,12 +306,7 @@ int main(){
     Node* a = NULL;
  
     SLL mergeList;
-    mergeList.push(&a, 17);
-    mergeList.push(&a, 8);
-    mergeList.push(&a, 5);
-    mergeList.push(&a, 22);
-    mergeList.push(&a, 4);
-    mergeList.push(&a, 2);
+    mergeList.populateList2(&a, 10);
 
     cout << "Linked List before merge sort is: " << endl;
     mergeList.printList2(a);
@@ -326,6 +328,7 @@ int main(){
     list.populateList(10);
     cout << "Linked List before counting sort is: " << endl;
     list.printList();
+    cout << endl;
     list.countingSort();
     cout << "Counting sorted Linked List is: " << endl;
     list.printList();
