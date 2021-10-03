@@ -87,19 +87,19 @@ class SLL{
         return size;
     }
 
-    void push(Node** head_ref, int new_data) // add to beginning of list
+    void push(Node** ref_head, int new_data) // add to beginning of list
     {
-        Node* new_node = new Node();
-        new_node->data = new_data;
-        new_node->next = (*head_ref);
-        (*head_ref) = new_node;
+        Node* nodeNew = new Node();
+        nodeNew->data = new_data;
+        nodeNew->next = (*ref_head);
+        (*ref_head) = nodeNew;
     }
 
-    Node* getTail(Node* cur)
+    Node* getTail(Node* current)
     {
-        while (cur != NULL && cur->next != NULL)
-            cur = cur->next;
-        return cur;
+        while (current != NULL && current->next != NULL)
+            current = current->next;
+        return current;
     }
     
     void countingSort(){
@@ -131,23 +131,23 @@ class SLL{
     }
     /* QUICK SORT BEGIN */
 
-    Node* partition(Node** newHead, Node** newEnd, Node* head, Node* end)
+    Node* partition(Node** headNew, Node** newEnd, Node* head, Node* end)
     {
         Node* pivot = end;
-        Node *previous = NULL, *tail = pivot, *current = head;
+        Node *preced = NULL, *tail = pivot, *current = head;
         while (current != pivot) {
             if (current->data < pivot->data) { 
-                if ((*newHead) == NULL)
-                    *newHead = current;
+                if ((*headNew) == NULL)
+                    *headNew = current;
     
-                previous = current;
+                preced = current;
                 current = current->next;
             }
             else // If current node is greater than pivot
             {
                 // Move current node next after tail and change tail
-                if (previous)
-                    previous->next = current->next;
+                if (preced)
+                    preced->next = current->next;
                 Node* temp1 = current->next;
                 current->next = NULL;
                 tail->next = current;
@@ -156,8 +156,8 @@ class SLL{
             }
         }
     
-        if ((*newHead) == NULL)
-            *newHead = pivot;
+        if ((*headNew) == NULL)
+            *headNew = pivot;
     
         *newEnd = tail;
     
@@ -166,28 +166,28 @@ class SLL{
  
     Node* recursionQS(Node* head, Node* end)
     {
-        if (!head || head == end)
+        if (head == end || !head)
             return head;
-        Node *newHead = NULL, *newTail = NULL;
+        Node *headNew = NULL, *tailNew = NULL;
     
         // partition list
-        Node* pivot = partition(&newHead, &newTail, head, end);
-        if (newHead != pivot) {
+        Node* pivot = partition(&headNew, &tailNew, head, end);
+        if (headNew != pivot) {
           
-            Node* tmp = newHead;
-            while (tmp->next != pivot)
-                tmp = tmp->next;
-            tmp->next = NULL;
+            Node* tmppig = headNew;
+            while (tmppig->next != pivot)
+                tmppig = tmppig->next;
+            tmppig->next = NULL;
     
             // Recursion for section of list before pivot
-            newHead = recursionQS(newHead, tmp);
-            tmp = getTail(newHead);
-            tmp->next = pivot;
+            headNew = recursionQS(headNew, tmppig);
+            tmppig = getTail(headNew);
+            tmppig->next = pivot;
         }
     
-        pivot->next = recursionQS(pivot->next, newTail);
+        pivot->next = recursionQS(pivot->next, tailNew);
     
-        return newHead;
+        return headNew;
     }
     
     void quickSort(Node** refHead)
@@ -203,6 +203,7 @@ class SLL{
     void mergeSort(Node** refHead)
     {
         Node* head = *refHead;
+
         Node* p; 
         Node* r; 
     
@@ -219,24 +220,24 @@ class SLL{
     
     Node* mergeSorted(Node* p, Node* r)
     {
-        Node* result = NULL;
+        Node* answer = NULL;
         if (p == NULL)
             return (r);
         else if (r == NULL)
             return (p);
     
-        // pick and recur
+        // pick and use recursion
         if (p->data <= r->data) {
-            result = p;
-            result->next = mergeSorted(p->next, r);
+            answer = p;
+            answer->next = mergeSorted(p->next, r);
         }
         else {
-            result = r;
-            result->next = mergeSorted(p, r->next);
+            answer = r;
+            answer->next = mergeSorted(p, r->next);
         }
-        return (result);
+        return (answer);
     }
-    void split(Node* origin, Node** frontRef, Node** backRef)
+    void split(Node* origin, Node** fRef, Node** bRef)
     {
         Node* rabbit;
         Node* turtle;
@@ -251,8 +252,8 @@ class SLL{
             }
         }
         //so split it in two at midpoint
-        *frontRef = origin;
-        *backRef = turtle->next;
+        *fRef = origin;
+        *bRef = turtle->next;
         turtle->next = NULL;
     }
 
@@ -294,7 +295,7 @@ int main(){
     //-----------------------
     /* MERGE SORT TEST*/
 
-    Node* res = NULL;
+    //Node* res = NULL;
     Node* a = NULL;
  
     SLL mergeList;
