@@ -86,6 +86,14 @@ public:
 
         return size;
     }
+    
+    Node* getHead(){    //returns head of list
+      return head;
+    }
+  
+    Node* getTail(){    //returns tail of list
+      return tail;
+    }
 
     void push(Node** ref_head, int new_data) // add to beginning of list
     {
@@ -134,7 +142,59 @@ public:
             }
         }
     }
-    /* COUNTING SORT END */
+    //COUNTING SORT END
+    //RADIX SORT BEGINNING
+    void countingSort(int factor){ //overloaded countingSort for radixSort
+    
+    int countArr[10] = {0};
+    
+    Node *curr = head;      //adding each element
+    while (curr != NULL)
+      {				
+
+	    countArr[(curr->data / factor) % 10]++;
+    	curr = curr->next;
+      }
+
+    curr = head;
+    SLL tempList;
+    while(curr != NULL){
+        
+        tempList.appendList(curr->data);
+        curr = curr->next;
+    }
+    
+    curr = head;
+    for (int i = 0; i < 10; i++)  //copying back each element
+      {
+        Node* tempCurr = tempList.getHead();
+        while (countArr[i] > 0){
+            while((tempCurr->data / factor) % 10 != i)
+                tempCurr = tempCurr->next;
+            
+            curr->data = tempCurr->data;
+	          curr = curr->next;
+            tempCurr = tempCurr->next;
+            countArr[i]--;
+        }
+      }
+  }
+    
+  void radixSort ()
+  {
+
+    int factor = 1;
+    int size = returnSize ();
+
+    while (factor <= size * 2)
+      {
+	//uses modified counting sort
+	//sorting elements
+	    countingSort(factor);
+	    factor *= 10;
+      }
+    }
+    /* RADIX SORT END */
     // ------------------------
     /* QUICK SORT BEGIN */
 
@@ -381,6 +441,21 @@ int main() {
     insertion.printList2(insertionpointer);
     cout << endl;
     /*INSERTION SORT END*/
+    
+    //RADIX SORT TEST
+    SLL radix;
+    radix.populateList(s);
+    
+    cout << "Linked List before radix sort is: " << endl;
+    radix.printList();
+    cout << endl;
+    
+    radix.radixSort();
+    cout << "Radix sorted linked list is: " << endl;
+    radix.printList();
+    cout << endl;
+    
+    //RADIX SORT TEST END
 
     return 0;
 }
