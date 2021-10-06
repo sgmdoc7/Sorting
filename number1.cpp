@@ -429,16 +429,18 @@ int main() {
     /* COUNTING SORT END */
 
     /*INSERTION SORT TEST*/
+    Node* b = NULL;
     SLL insertion;
-    insertion.populateList2(&a, s);
+    insertion.populateList2(&b, s);
 
     cout << "Linked List before insertion sort is: " << endl;
-    insertion.printList2(a);
+    insertion.printList2(b);
     cout << endl;
 
-    Node* insertionpointer = insertion.insertionsort(a);
+    b = insertion.insertionsort(b);
     cout << "insertion sorted linked list is: " << endl;
-    insertion.printList2(insertionpointer);
+    insertion.printList2(b);
+    cout << endl;
     cout << endl;
     /*INSERTION SORT END*/
     
@@ -459,11 +461,3 @@ int main() {
 
     return 0;
 }
-    
-
-
-
-
-
-
-    
