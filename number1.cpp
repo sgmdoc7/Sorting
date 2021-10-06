@@ -111,6 +111,29 @@ public:
     }
 
     /* BUBBLE SORT BEGIN */
+    void mySwap (Node *node_1, Node *node_2){
+	    int temp = node_1->data;
+	    node_1->data = node_2 -> data;
+	    node_2 -> data = temp;
+    }
+
+    void bubbleSort(Node *head){
+	    int swap;
+	    Node *lPtr; // left pointer will point to the start of the list
+	    Node *rPtr = NULL; // right pointer will point to the end of the list
+	    do{
+		    swap = 0;
+		    lPtr = head;
+		    while(lPtr->next != rPtr){
+			    if (lPtr->data > lPtr->next->data) {
+				    mySwap(lPtr, lPtr->next); //Swapping data
+				    swap = 1; 
+			    }
+			    lPtr = lPtr->next;
+		    }
+		    rPtr = lPtr;
+	    }while(swap);
+    }
 
     /* BUBBLE SORT END */
     // ------------------------
@@ -143,6 +166,7 @@ public:
         }
     }
     //COUNTING SORT END
+    // ------------------------
     //RADIX SORT BEGINNING
     void countingSort(int factor){ //overloaded countingSort for radixSort
     
@@ -330,7 +354,8 @@ public:
     }
 
     /* MERGE SORT END */
-    /*ISNERTION SORT BEGIN*/
+    // ------------------------
+    /*INSERTION SORT BEGIN*/
     Node* insertionsort(Node* headref)
     {
         Node* sorted = NULL;
@@ -370,9 +395,27 @@ int main() {
      /* Start with the empty list */
     cout << "What size would you like the arrays? (10,100,500,5000, or 25000)" << endl;
     cin >> s;
+	
+    /* BUBBLE SORT TEST*/
+    cout<<endl;
+    Node* r = NULL;
 
-    /* QUICK SORT TEST*/
+    SLL bubbleList;
+    bubbleList.populateList2(&r,s);
+    cout << "Linked List before bubble sort is: " << endl;
+    bubbleList.printList2(r);
     cout << endl;
+
+    bubbleList.bubbleSort(r);
+
+    cout << "Bubble sorted Linked List is: " << endl;
+    bubbleList.printList2(r);
+    cout << endl<<endl;
+    
+
+    /* BUBBLE SORT END*/
+    //-----------------------
+    /* QUICK SORT TEST*/
     Node* f = NULL;
 
     SLL quickList;
