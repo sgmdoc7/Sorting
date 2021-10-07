@@ -414,7 +414,7 @@ int main() {
     cout << endl;
     auto t1 = Clock::now();
     auto t2 = Clock::now();
-    std::cout << "Delta t2-t1: "<< std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count();
+    std::cout << "Delta t2-t1: "<< std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count() <<" nanoseconds" << std::endl;
     cout << endl<<endl;
 
 
@@ -424,7 +424,6 @@ int main() {
     Node* f = NULL;
 
     SLL quickList;
-    quickList.populateList2(&r, s);
 
     cout << "Linked List before quick sort is: " << endl;
     quickList.printList2(r);
@@ -437,7 +436,7 @@ int main() {
     cout << endl;
     auto t3 = Clock::now();
     auto t4 = Clock::now();
-    std::cout << "Delta t4-t3: "<< std::chrono::duration_cast<std::chrono::nanoseconds>(t4 - t3).count();
+    std::cout << "Delta t4-t3: "<< std::chrono::duration_cast<std::chrono::nanoseconds>(t4 - t3).count() << " nanoseconds" << std::endl;
     cout << endl;
     cout << endl;
     /* QUICK SORT END*/
@@ -448,7 +447,6 @@ int main() {
     Node* a = NULL;
 
     SLL mergeList;
-    mergeList.populateList2(&r, s);
 
     cout << "Linked List before merge sort is: " << endl;
     mergeList.printList2(r);
@@ -461,7 +459,7 @@ int main() {
     cout << endl;
     auto t5 = Clock::now();
     auto t6 = Clock::now();
-    std::cout << "Delta t6-t5: "<< std::chrono::duration_cast<std::chrono::nanoseconds>(t6 - t5).count();
+    std::cout << "Delta t6-t5: "<< std::chrono::duration_cast<std::chrono::nanoseconds>(t6 - t5).count() << " nanoseconds" << std::endl;
     cout << endl;
     cout << endl;
 
@@ -486,7 +484,6 @@ int main() {
     /*INSERTION SORT TEST*/
     Node* b = NULL;
     SLL insertion;
-    insertion.populateList2(&r, s);
 
     cout << "Linked List before insertion sort is: " << endl;
     insertion.printList2(r);
@@ -498,7 +495,7 @@ int main() {
     cout << endl;
     auto t7 = Clock::now();
     auto t8 = Clock::now();
-    std::cout << "Delta t8-t7: "<< std::chrono::duration_cast<std::chrono::nanoseconds>(t8 - t7).count();
+    std::cout << "Delta t8-t7: "<< std::chrono::duration_cast<std::chrono::nanoseconds>(t8 - t7).count() << " nanoseconds" << std::endl;
     cout << endl;
     cout << endl;
     /*INSERTION SORT END*/
