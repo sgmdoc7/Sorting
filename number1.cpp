@@ -381,6 +381,61 @@ public:
         return head;
     }
     /*INSERTION SORT END*/
+    Node* returnatindex(Node* headref, int index){
+    for(int i = 0; i < index; i++){
+      headref = headref->next;
+    }
+    return headref;
+  }
+
+  void heapify(int arr[], int size, int i)
+{
+    int big = i; 
+    int left = 2 * i + 1; //left child
+    int right = 2 * i + 2; //right child
+ 
+    if (left < size && arr[left] > arr[big]){
+        big = left;
+    }
+    if (right < size && arr[right] > arr[big]){
+        big = right;
+    }
+    if (big != i) {
+        swap(arr[i], arr[big]);
+        heapify(arr, size, big);
+    }
+}
+
+  void heapsort(Node* headref, int size){
+    int arr[size];
+    Node* next;
+    for(int i = 0; i < size; i++){ //change linked list into array to swap data easier
+      arr[i] = returnatindex(headref, i)->data;
+    }
+
+    for (int i=size/2-1; i>=0; i--){
+        heapify(arr, size, i);
+    }
+    for (int i=size-1; i>0; i--) {
+        swap(arr[0], arr[i]);
+         heapify(arr, i, 0);
+    }
+
+    for(int i = 0; i < size; i++){
+      Node* newNode = new Node;
+        newNode->data = arr[i];
+        newNode->next = NULL;
+
+        if (head == NULL && tail == NULL) {
+            head = newNode;
+            tail = newNode;
+        }
+        else {
+            tail->next = newNode;
+            tail = newNode;
+        }
+    }
+  }
 };
 
 
@@ -481,7 +536,7 @@ int main() {
     cout << endl;
 
     b = insertion.insertionsort(b);
-    cout << "insertion sorted linked list is: " << endl;
+    cout << "Insertion sorted linked list is: " << endl;
     insertion.printList2(b);
     cout << endl;
     cout << endl;
@@ -499,8 +554,25 @@ int main() {
     cout << "Radix sorted linked list is: " << endl;
     radix.printList();
     cout << endl;
+    cout << endl;
     
     //RADIX SORT TEST END
 
+    
+/*heap SORT TEST*/
+    Node* e = NULL;
+    SLL heaps;
+    heaps.populateList2(&e, s);
+
+    cout << "Linked List before heap sort is: " << endl;
+    heaps.printList2(e);
+    cout << endl;
+    heaps.heapsort(e,s);
+    cout << "Heap sorted linked list is: " << endl;
+    heaps.printList();
+    cout << endl;
+    cout << endl;
+    
+    /*heap SORT END*/
     return 0;
 }
