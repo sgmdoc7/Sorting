@@ -201,8 +201,10 @@ public:
         return current;
     }
 
+    
+
     /*ISNERTION SORT BEGIN for First Name*/
-    Node* insertionsort(Node* headref, int listselect)
+    Node* insertionsort(Node* headref)
     {
         Node* sorted = NULL;
         Node* key = headref;
