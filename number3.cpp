@@ -16,6 +16,7 @@ the sorted students on the screen.
 #include <cstdlib>
 #include <ctime>
 #include <string>
+#incku
 
 using namespace std;
 
@@ -63,26 +64,25 @@ public:
         }
     }
 
-
     void populateList2(Node** head_ref) { //makes list of preferred size
 
     
-        string first[] = {"Sarah"," Greg"," Hayden"," Brayden"," Emily"," Grace"," Kayden"," Charles"," Ibrahim",               "Neha"," Shruti"," Al"," Chloe"," Blair",
-                  " Nick","Eric"," Preston"," Dean"," Shreya"," Ben"," Madilyn"," Trevor"," Kelly"," Ameya"," Joshua"," Nachiket"," Ryan"," Om",
-                  " Jimmy"," Trysten"," Isabella","Sunny"," Caleb"," Trey"," Travis"," Jake"," Christian"," Prateek"," Calvin"," Huy"," Nathaniel",
-                  " Cat"," Quoc"," Trent"," Parker"," Jack"," Avery","Derrick"," Keein"," Potatoe"," Patty"};
+        string first[] = {"Sarah","Greg","Hayden","Brayden","Emily","Grace","Kayden","Charles","Ibrahim",               "Neha","Shruti","Al","Chloe","Blair",
+                  "Nick","Eric","Preston","Dean","Shreya","Ben","Madilyn","Trevor","Kelly","Ameya","Joshua","Nachiket","Ryan","Om",
+                  "Jimmy","Trysten","Isabella","Sunny","Caleb","Trey","Travis","Jake","Christian","Prateek","Calvin","Huy","Nathaniel",
+                  "Cat","Quoc","Trent","Parker","Jack","Avery","Derrick","Keein","Potatoe","Patty"};
         
-        string last[] = {"Murdock"," Thatcher"," Reed"," Wood"," Meyers"," Raymer"," Yaweh"," Adams"," Ahmed"," Ruth",         " Asolkar"," Ayoola"," Belletti",
-                " Bowen"," Bryant","Buffing"," Buter"," Cashmere"," Chandra"," Cimini"," Coul"," Darst"," Deal"," Deshmukh"," Dickens"," Dighe",
-                " Evans"," Gaikwad"," German"," Giorg"," Hall","He"," Hendrix"," Hicks"," Hurst"," Huseman"," Kahl"," Kharan"," Kinated"," Le",
-                " Loud"," Luong"," Lang"," Maas"," Manson"," Margeson"," Mathis"," McHale","Rawr"," Head"," Burger"};
+        string last[] = {"Murdock","Thatcher","Reed","Wood","Meyers","Raymer","Yaweh","Adams","Ahmed","Ruth",         "Asolkar","Ayoola","Belletti",
+                "Bowen","Bryant","Buffing","Buter","Cashmere","Chandra","Cimini","Coul","Darst","Deal","Deshmukh","Dickens","Dighe",
+                "Evans","Gaikwad","German","Giorg","Hall","He","Hendrix","Hicks","Hurst","Huseman","Kahl","Kharan","Kinated","Le",
+                "Loud","Luong","Lang","Maas","Manson","Margeson","Mathis","McHale","Rawr","Head","Burger"};
         
         int mnumber[] = {13349332, 56628723, 78383890, 83475939, 47883992, 72583828, 75424551, 75783888, 58362625, 68836653, 76774728, 86736271, 87533944, 86459633,
                          74653883, 25860056, 25254386, 84222485, 75763515, 76736252, 75639593, 85837775, 59499384, 75993455, 85739355, 11245723, 88721174, 29347245,
                          35236682, 23588934, 23958929, 89263865, 90328111, 97297992, 19646736, 83920264, 29774627, 83749626, 76388368, 65763672, 83263239, 36592743,
                          97238422, 88411392, 10907447, 38205723, 48500902, 48500903, 48500904, 48500906, 48500907};
 
-        for (int i = 0; i < sizeof(first)/sizeof(first[0]); i++) { // adding first names
+        for (int i = 0; i < sizeof(first)/sizeof(first[0]); i++) { // adding first name, last name, mnumber to a node, then going to next node
 
           Node* nodeNew = new Node();
           nodeNew->First = first[i];
@@ -122,16 +122,9 @@ public:
         return current;
     }
     /* BUBBLE SORT BEGIN */
-    void bubbleSort(){      
+    void bubbleSort(){
       
-    }
-
-    /* BUBBLE SORT END */
-
-    /*ISNERTION SORT BEGIN for First Name*/
-    void insertionsort()	//key determines if first name (key = 1), last name (key = 2) or mnumber (key = 3).
-    {   
-        Node* curr = head;
+      Node* curr = head;
         while(curr->next != NULL){
         	Node* temp = curr;
         	while (temp->next != NULL and temp->First.compare(temp->next->First) == 1){
@@ -142,6 +135,40 @@ public:
              	
            		temp = temp->next;
         	}
+        	curr = curr->next;
+        } 
+    }
+
+    /* BUBBLE SORT END */
+
+    /*ISNERTION SORT BEGIN for First Name*/
+    void insertionsort()	
+    {   
+        Node* curr = head, *currPrev = head;
+        while(curr->next != NULL){
+        	Node* temp = curr, *tempPrev =  currPrev;
+        	while (temp->next != NULL and temp->Last.compare(curr->Last) == 1){
+              	tempPrev = temp;
+           		temp = temp->next;
+        	}
+          	if (temp->Last.compare(curr->Last) != 1){
+            	
+              	if (curr == head){
+                    
+                  	tempPrev->next = temp->next;
+                    	temp->next = curr;
+                    	head = temp;                    	
+                  }
+              	else{
+                  	tempPrev->next = temp->next;
+                    	temp->next = curr;
+                    	currPrev->next = temp;
+                  }
+              	
+              	if (temp->next == NULL)
+                  	tail = tempPrev;	  	
+            }
+          	currPrev = curr;
         	curr = curr->next;
         }
     }
@@ -269,7 +296,6 @@ public:
 
     /* MERGE SORT END */
 };
-
 int main() {
 
     srand(unsigned(time(NULL)));
@@ -396,3 +422,4 @@ int main() {
 
     return 0;
 }
+
