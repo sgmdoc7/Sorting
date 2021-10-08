@@ -1,5 +1,4 @@
 /* Code for number 3 
-
 3.	Create a linked list class that can store Student information.  
 The Student information must include First Name, Last Name, MNumber 
 and may include any other additional information you wish.  
@@ -11,80 +10,6 @@ linked list with data for 50 students that will result in a different
 order for each of the fields.  Include a menu interface that allows 
 the user to select the sort method and direction and will display 
 the sorted students on the screen.
-
-Student Info:
-
-Sarah,Murdock,M13349332
-Greg,Thatcher,M56628723
-Hayden, Reed    ,M78383890
-Brayden, Wood   ,M83475939
-Emily, Meyers   ,M47883992
-Grace, Raymer   ,M72583828
-Kayden, Yaweh   ,M75424551
-Charles, Adams  ,M75783888
-Ibrahim, Ahmed	,M36248658
-Neha, Ruth      ,M36552268
-Shruti, Asolkar	,M65935286
-Al, Ayoola	    ,M75738624
-Chloe, Belletti	,M58362625
-Blair, Bowen	,M68836653
-Nick, Bryant	,M76774728
-Eric, Buffing   ,M86736271
-Preston, Buter  ,M87533944
-Dean, Cashmere	,M86459633
-Shreya, Chandra	,M74653883
-Ben, Cimini	    ,M25860056
-Madilyn, Coul	,M25254386
-Trevor, Darst	,M84222485
-Kelly, Deal	    ,M75763515
-Ameya, Deshmukh ,M76736252
-Joshua, Dickens	,M75639593
-Nachiket, Dighe	,M85837775
-Ryan, Evans     ,M59499384
-Om, Gaikwad	    ,M75993455
-Jimmy, German   ,M85739355
-Trysten, Giorg  ,M11245723
-Isabella, Hall	,M88721174
-Sunny, He	    ,M29347245
-Caleb, Hendrix	,M35236682
-Trey, Hicks	    ,M23588934
-Travis, Hurst   ,M23958929
-Jake, Huseman	,M89263865
-Christian, Kahl ,M90328111
-Prateek, Kharan ,M97297992
-Calvin, Kinated	,M19646736
-Huy, Le	        ,M83920264
-Nathaniel, Loud ,M29774627
-Cat, Luong	    ,M83749626
-Quoc, Luong	    ,M76388368
-Trent, Maas	    ,M65763672
-Parker, Manson	,M83263239
-Jack, Margeson  ,M36592743
-Avery, Mathis	,M97238422
-Derrick, McHale ,M88411392
-Keein, Rawr     ,M10907447
-Potatoe, Head   ,M38205723
-Patty, Burger   ,M48500902
-
-students = {Sarah,Murdock,M13349332,Greg,Thatcher,M56628723,Hayden,Reed,M78383890,
-    Brayden,Wood,M83475939,Emily,Meyers,M47883992,Grace,Raymer,M72583828,Kayden,Yaweh,
-    M75424551,Charles,Adams,M75783888,Ibrahim,Ahmed,M36248658,Neha,Ruth,M36552268,Shruti, 
-    Asolkar,M65935286,Al,Ayoola,M75738624,Chloe,Belletti,M58362625,Blair,Bowen,M68836653,
-    Nick,Bryant,M76774728,Eric,Buffing,M86736271,Preston,Buter,M87533944,Dean,Cashmere,
-    M86459633,Shreya,Chandra,M74653883,Ben,Cimini,M25860056,Madilyn,Coul,M25254386,Trevor,
-    Darst,M84222485,Kelly,Deal,M75763515,Ameya,Deshmukh,M76736252,Joshua,Dickens,M75639593,
-    Nachiket,Dighe,M85837775,Ryan,Evans,M59499384,Om,Gaikwad,M75993455,Jimmy,German,M85739355,
-    Trysten,Giorg,M11245723,Isabella,Hall,M88721174,Sunny,He,M29347245,Caleb,Hendrix,M35236682,
-    Trey,Hicks,M23588934,Travis,Hurst,M23958929,Jake,Huseman,M89263865,Christian,Kahl,M90328111,
-    Prateek,Kharan,M97297992,Calvin,Kinated,M19646736,Huy,Le,M83920264,Nathaniel,Loud,M29774627,
-    Cat,Luong,M83749626,Quoc,Luong,M76388368,Trent,Maas,M65763672,Parker,Manson,M83263239,Jack,
-    Margeson,M36592743,Avery,Mathis,M97238422,Derrick,McHale,M88411392,Keein,Rawr,M10907447,
-    Potatoe,Head,M38205723,Patty,Burger,M48500902}
-
-
-change to ascii values
-compare
-
 */
 
 #include <iostream>
@@ -133,7 +58,7 @@ public:
     void printList2(Node* node) // another way to print list
     {
         while (node != NULL) {
-            cout << node->data << " ";
+            cout << node->First << "\t" << node->Last << "\t" << node-> Mnumber << endl;
             node = node->next;
         }
     }
@@ -141,50 +66,34 @@ public:
 
     void populateList2(Node** head_ref) { //makes list of preferred size
 
-        first = {"Sarah"," Greg"," Hayden"," Brayden"," Emily"," Grace"," Kayden"," Charles"," Ibrahim"," Neha"," Shruti"," Al"," Chloe"," Blair",
-                 " Nick","Eric"," Preston"," Dean"," Shreya"," Ben"," Madilyn"," Trevor"," Kelly"," Ameya"," Joshua"," Nachiket"," Ryan"," Om",
-                 " Jimmy"," Trysten"," Isabella","Sunny"," Caleb"," Trey"," Travis"," Jake"," Christian"," Prateek"," Calvin"," Huy"," Nathaniel",
-                 " Cat"," Quoc"," Trent"," Parker"," Jack"," Avery","Derrick"," Keein"," Potatoe"," Patty"}
-
-        last = {"Murdock"," Thatcher"," Reed"," Wood"," Meyers"," Raymer"," Yaweh"," Adams"," Ahmed"," Ruth"," Asolkar"," Ayoola"," Belletti",
+    
+        string first[] = {"Sarah"," Greg"," Hayden"," Brayden"," Emily"," Grace"," Kayden"," Charles"," Ibrahim",               "Neha"," Shruti"," Al"," Chloe"," Blair",
+                  " Nick","Eric"," Preston"," Dean"," Shreya"," Ben"," Madilyn"," Trevor"," Kelly"," Ameya"," Joshua"," Nachiket"," Ryan"," Om",
+                  " Jimmy"," Trysten"," Isabella","Sunny"," Caleb"," Trey"," Travis"," Jake"," Christian"," Prateek"," Calvin"," Huy"," Nathaniel",
+                  " Cat"," Quoc"," Trent"," Parker"," Jack"," Avery","Derrick"," Keein"," Potatoe"," Patty"};
+        
+        string last[] = {"Murdock"," Thatcher"," Reed"," Wood"," Meyers"," Raymer"," Yaweh"," Adams"," Ahmed"," Ruth",         " Asolkar"," Ayoola"," Belletti",
                 " Bowen"," Bryant","Buffing"," Buter"," Cashmere"," Chandra"," Cimini"," Coul"," Darst"," Deal"," Deshmukh"," Dickens"," Dighe",
                 " Evans"," Gaikwad"," German"," Giorg"," Hall","He"," Hendrix"," Hicks"," Hurst"," Huseman"," Kahl"," Kharan"," Kinated"," Le",
-                " Loud"," Luong"," Lang"," Maas"," Manson"," Margeson"," Mathis"," McHale","Rawr"," Head"," Burger"}
+                " Loud"," Luong"," Lang"," Maas"," Manson"," Margeson"," Mathis"," McHale","Rawr"," Head"," Burger"};
+        
+        int mnumber[] = {13349332, 56628723, 78383890, 83475939, 47883992, 72583828, 75424551, 75783888, 58362625, 68836653, 76774728, 86736271, 87533944, 86459633,
+                         74653883, 25860056, 25254386, 84222485, 75763515, 76736252, 75639593, 85837775, 59499384, 75993455, 85739355, 11245723, 88721174, 29347245,
+                         35236682, 23588934, 23958929, 89263865, 90328111, 97297992, 19646736, 83920264, 29774627, 83749626, 76388368, 65763672, 83263239, 36592743,
+                         97238422, 88411392, 10907447, 38205723, 48500902, 48500903, 48500904, 48500906, 48500907};
 
-        mnumber = {13349332, 56628723, 78383890, 83475939, 47883992, 72583828, 75424551, 75783888, 58362625, 68836653, 76774728, 86736271,
-        		87533944, 86459633, 74653883, 25860056, 25254386, 84222485, 75763515, 76736252, 75639593, 85837775, 59499384, 75993455, 85739355,
-        		11245723, 88721174, 29347245, 35236682, 23588934, 23958929, 89263865, 90328111, 97297992, 19646736, 83920264, 29774627, 83749626,
-        		76388368, 65763672, 83263239, 36592743, 97238422, 88411392, 10907447, 38205723, 48500902}
+        for (int i = 0; i < sizeof(first)/sizeof(first[0]); i++) { // adding first names
 
-        for (int i = 0; i < 150; i++) { // adding first names
-
-            string new_data = first[i]
-            Node* nodeNew = new Node();
-        	nodeNew->First = new_data;
-        	nodeNew->next = (*head_ref);
-        	(*head_ref) = nodeNew;
-        }
-      
-        for (int i = 0; i < 150; i++) { // adding last names
-
-              string new_data = last[i] 
-              Node* nodeNew = new Node();
-        	  nodeNew->Last = new_data;
-        	  nodeNew->next = (*head_ref);
-        	  (*head_ref) = nodeNew;
-          }
-    
-      	for (int i = 0; i < 150; i++) { // adding Mnumbers
-
-            int new_data = mnumber[i]
-            Node* nodeNew = new Node();
-        	nodeNew->Mnumber = new_data;
-        	nodeNew->next = (*head_ref);
-        	(*head_ref) = nodeNew;
+          Node* nodeNew = new Node();
+          nodeNew->First = first[i];
+          nodeNew->Last = last[i];
+          nodeNew->Mnumber = mnumber[i];
+           nodeNew->next = (*head_ref);
+          (*head_ref) = nodeNew;
         }
       
     }
-
+  
     int returnSize() {   //returns size of list
 
         int size = 0;
@@ -247,19 +156,51 @@ public:
           Node* curr = head;
           while(curr->next != NULL){
             Node* temp = curr;
-            while (temp->First.compare(tme->next->First) == 1){
-            	string temp = curr->next->First;
-              	curr->First = temp;
-              	curr = curr->next;
+            while (temp->next != NULL and temp->First.compare(temp->next->First) == 1){
+            	
+              	string tempS = temp->next->First;
+              	temp->next->First = temp->First;
+              	temp->First = tempS;
+              	
+              	temp = temp->next;
             }
-
-            	  
+            curr = curr->next;
           }
             		
         }
+      
         if (key == 2){
+          
+          Node* curr = head;
+          while(curr->next != NULL){
+            Node* temp = curr;
+            while (temp->next != NULL and temp->Last.compare(temp->next->Last) == 1){
+            	
+              	string tempS = temp->next->Last;
+              	temp->next->Last = temp->Last;
+              	temp->Last = tempS;
+              	
+              	temp = temp->next;
+            }
+            curr = curr->next;
+          }     
         }
-      	if (key == 3){
+      
+        if (key == 3){
+              
+          Node* curr = head;
+          while(curr->next != NULL){
+            Node* temp = curr;
+            while (temp->next != NULL and temp->Mnumber > temp->next->Mnumber){
+            	
+              	string tempS = temp->next->Mnumber;
+              	temp->next->Mnumber = temp->Mnumber;
+              	temp->Mnumber = tempS;
+              	
+              	temp = temp->next;
+            }
+            curr = curr->next;
+          }
         }
     }
     /*INSERTION SORT END*/
@@ -388,3 +329,4 @@ int main() {
 
     return 0;
 }
+
