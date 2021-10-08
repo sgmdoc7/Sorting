@@ -382,7 +382,60 @@ public:
         return head;
     }
     /*INSERTION SORT END*/
-};
+        Node* returnatindex(Node* headref, int index){
+    for(int i = 0; i < index; i++){
+      headref = headref->next;
+    }
+    return headref;
+  }
+
+    void heapify(int arr[], int size, int i){
+      int big = i; 
+      int left = 2 * i + 1; //left child
+      int right = 2 * i + 2; //right child
+  
+      if (left < size && arr[left] > arr[big]){
+          big = left;
+      }
+      if (right < size && arr[right] > arr[big]){
+          big = right;
+      }
+      if (big != i) {
+          swap(arr[i], arr[big]);
+          heapify(arr, size, big);
+      }
+  }
+    void heapsort(Node* headref, int size){
+      int arr[size];
+      Node* next;
+      for(int i = 0; i < size; i++){ //change linked list into array to swap data easier
+        arr[i] = returnatindex(headref, i)->data;
+      }
+
+      for (int i=size/2-1; i>=0; i--){
+          heapify(arr, size, i);
+      }
+      for (int i=size-1; i>0; i--) {
+          swap(arr[0], arr[i]);
+          heapify(arr, i, 0);
+      }
+
+      for(int i = 0; i < size; i++){
+        Node* newNode = new Node;
+          newNode->data = arr[i];
+          newNode->next = NULL;
+
+          if (head == NULL && tail == NULL) {
+              head = newNode;
+              tail = newNode;
+          }
+          else {
+              tail->next = newNode;
+              tail = newNode;
+          }
+      }
+    }
+  };
 
 
 
@@ -398,25 +451,17 @@ int main() {
     cin >> s;
 	
     /* BUBBLE SORT TEST*/
-    cout<<endl;
     Node* r = NULL;
 
     SLL bubbleList;
     bubbleList.populateList2(&r,s);
-    cout << "Linked List before bubble sort is: " << endl;
-    bubbleList.printList2(r);
-    cout << endl;
-
-    bubbleList.bubbleSort(r);
-
-    cout << "Bubble sorted Linked List is: " << endl;
-    bubbleList.printList2(r);
     cout << endl;
     auto t1 = Clock::now();
+    bubbleList.bubbleSort(r);
+
+    cout << "Bubble sorted Linked List" << endl;
     auto t2 = Clock::now();
     std::cout << "Delta t2-t1: "<< std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t1).count() <<" nanoseconds" << std::endl;
-    cout << endl<<endl;
-
 
     /* BUBBLE SORT END*/
     //-----------------------
@@ -425,42 +470,27 @@ int main() {
 
     SLL quickList;
 
-    cout << "Linked List before quick sort is: " << endl;
-    quickList.printList2(r);
-    cout << endl;
-
-    quickList.quickSort(&r);
-
-    cout << "Quick sorted Linked List is: " << endl;
-    quickList.printList2(r);
     cout << endl;
     auto t3 = Clock::now();
+    quickList.quickSort(&r);
+
+    cout << "Quick sorted Linked List " << endl;
     auto t4 = Clock::now();
     std::cout << "Delta t4-t3: "<< std::chrono::duration_cast<std::chrono::nanoseconds>(t4 - t3).count() << " nanoseconds" << std::endl;
-    cout << endl;
-    cout << endl;
     /* QUICK SORT END*/
     //-----------------------
     /* MERGE SORT TEST*/
 
-    //Node* res = NULL;
     Node* a = NULL;
 
     SLL mergeList;
-
-    cout << "Linked List before merge sort is: " << endl;
-    mergeList.printList2(r);
-    cout << endl;
-
-    mergeList.mergeSort(&r);
-
-    cout << "Merge sorted Linked List is: " << endl;
-    mergeList.printList2(r);
     cout << endl;
     auto t5 = Clock::now();
+    mergeList.mergeSort(&r);
+
+    cout << "Merge sorted Linked List " << endl;
     auto t6 = Clock::now();
     std::cout << "Delta t6-t5: "<< std::chrono::duration_cast<std::chrono::nanoseconds>(t6 - t5).count() << " nanoseconds" << std::endl;
-    cout << endl;
     cout << endl;
 
 
@@ -469,15 +499,11 @@ int main() {
     /* COUNTING SORT TEST */
 
     SLL list;
-    list.populateList(s);
-    cout << "Linked List before counting sort is: " << endl;
-    list.printList();
-    cout << endl;
+    auto t9 = Clock::now();
     list.countingSort();
-    cout << "Counting sorted Linked List is: " << endl;
-    list.printList();
-    cout << endl;
-    cout << endl;
+    cout << "Counting sorted Linked List" << endl;
+    auto t10 = Clock::now();
+    std::cout << "Delta t10-t9: "<< std::chrono::duration_cast<std::chrono::nanoseconds>(t10 - t9).count() << " nanoseconds" << std::endl;
 
     /* COUNTING SORT END */
 
@@ -485,35 +511,38 @@ int main() {
     Node* b = NULL;
     SLL insertion;
 
-    cout << "Linked List before insertion sort is: " << endl;
-    insertion.printList2(r);
-    cout << endl;
-
-    r = insertion.insertionsort(r);
-    cout << "insertion sorted linked list is: " << endl;
-    insertion.printList2(r);
     cout << endl;
     auto t7 = Clock::now();
+    r = insertion.insertionsort(r);
+    cout << "Insertion sorted linked list " << endl;
     auto t8 = Clock::now();
     std::cout << "Delta t8-t7: "<< std::chrono::duration_cast<std::chrono::nanoseconds>(t8 - t7).count() << " nanoseconds" << std::endl;
-    cout << endl;
-    cout << endl;
     /*INSERTION SORT END*/
     
     //RADIX SORT TEST
     SLL radix;
-    radix.populateList(s);
     
-    cout << "Linked List before radix sort is: " << endl;
-    radix.printList();
     cout << endl;
-    
+    auto t11 = Clock::now();
     radix.radixSort();
-    cout << "Radix sorted linked list is: " << endl;
-    radix.printList();
-    cout << endl;
-    
+    cout << "Radix sorted linked list " << endl;
+    auto t12 = Clock::now();
+    std::cout << "Delta t12-t11: "<< std::chrono::duration_cast<std::chrono::nanoseconds>(t12 - t11).count() << " nanoseconds" << std::endl;
+
     //RADIX SORT TEST END
+
+    /*heap SORT TEST*/
+    Node* e = NULL;
+    SLL heaps;
+
+    cout << endl;
+    auto t13 = Clock::now();
+    heaps.heapsort(r,s);
+    cout << "Heap sorted linked list" << endl;
+    auto t14 = Clock::now();
+    std::cout << "Delta t14-t13: "<< std::chrono::duration_cast<std::chrono::nanoseconds>(t14 - t13).count() << " nanoseconds" << std::endl;
+    
+    /*heap SORT END*/
 
     return 0;
 }
