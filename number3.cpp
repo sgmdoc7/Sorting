@@ -90,6 +90,7 @@ compare
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <string>
 
 using namespace std;
 
@@ -97,7 +98,6 @@ struct Node{
         string First;
         string Last;
         int Mnumber;
-        int listselect; // 1, 2, 3
         Node* next;
     };
 
@@ -112,10 +112,12 @@ public:
         tail = NULL;
     }
 
-    void appendList(int data) { //adds at the end of the list
+    void appendList(string First, string Last, int Mnumber) { //adds at the end of the list
 
         Node* newNode = new Node;
-        newNode->data = data;
+        newNode->First = First;
+      	newNode->Last = Last;
+      	newNode->Mnumber = Mnumber;
         newNode->next = NULL;
 
         if (head == NULL && tail == NULL) {
@@ -136,33 +138,51 @@ public:
         }
     }
 
-    AsciiConv(){
 
-    }
+    void populateList2(Node** head_ref) { //makes list of preferred size
 
-    void populateList2(Node** head_ref, int size) { //makes list of preferred size
+        first = {"Sarah"," Greg"," Hayden"," Brayden"," Emily"," Grace"," Kayden"," Charles"," Ibrahim"," Neha"," Shruti"," Al"," Chloe"," Blair",
+                 " Nick","Eric"," Preston"," Dean"," Shreya"," Ben"," Madilyn"," Trevor"," Kelly"," Ameya"," Joshua"," Nachiket"," Ryan"," Om",
+                 " Jimmy"," Trysten"," Isabella","Sunny"," Caleb"," Trey"," Travis"," Jake"," Christian"," Prateek"," Calvin"," Huy"," Nathaniel",
+                 " Cat"," Quoc"," Trent"," Parker"," Jack"," Avery","Derrick"," Keein"," Potatoe"," Patty"}
 
-        students = {Sarah,Murdock,13349332,Greg,Thatcher,56628723,Hayden,Reed,78383890,
-        Brayden,Wood,83475939,Emily,Meyers,47883992,Grace,Raymer,72583828,Kayden,Yaweh,
-        75424551,Charles,Adams,75783888,Ibrahim,Ahmed,36248658,Neha,Ruth,36552268,Shruti, 
-        Asolkar,65935286,Al,Ayoola,75738624,Chloe,Belletti,58362625,Blair,Bowen,68836653,
-        Nick,Bryant,76774728,Eric,Buffing,86736271,Preston,Buter,87533944,Dean,Cashmere,
-        86459633,Shreya,Chandra,74653883,Ben,Cimini,25860056,Madilyn,Coul,25254386,Trevor,
-        Darst,84222485,Kelly,Deal,75763515,Ameya,Deshmukh,76736252,Joshua,Dickens,75639593,
-        Nachiket,Dighe,85837775,Ryan,Evans,59499384,Om,Gaikwad,75993455,Jimmy,German,85739355,
-        Trysten,Giorg,11245723,Isabella,Hall,88721174,Sunny,He,29347245,Caleb,Hendrix,35236682,
-        Trey,Hicks,23588934,Travis,Hurst,23958929,Jake,Huseman,89263865,Christian,Kahl,90328111,
-        Prateek,Kharan,97297992,Calvin,Kinated,19646736,Huy,Le,83920264,Nathaniel,Loud,29774627,
-        Cat,Luong,83749626,Quoc,Luong,76388368,Trent,Maas,65763672,Parker,Manson,83263239,Jack,
-        Margeson,36592743,Avery,Mathis,97238422,Derrick,McHale,88411392,Keein,Rawr,10907447,
-        Potatoe,Head,38205723,Patty,Burger,48500902}
+        last = {"Murdock"," Thatcher"," Reed"," Wood"," Meyers"," Raymer"," Yaweh"," Adams"," Ahmed"," Ruth"," Asolkar"," Ayoola"," Belletti",
+                " Bowen"," Bryant","Buffing"," Buter"," Cashmere"," Chandra"," Cimini"," Coul"," Darst"," Deal"," Deshmukh"," Dickens"," Dighe",
+                " Evans"," Gaikwad"," German"," Giorg"," Hall","He"," Hendrix"," Hicks"," Hurst"," Huseman"," Kahl"," Kharan"," Kinated"," Le",
+                " Loud"," Luong"," Lang"," Maas"," Manson"," Margeson"," Mathis"," McHale","Rawr"," Head"," Burger"}
 
+        mnumber = {13349332, 56628723, 78383890, 83475939, 47883992, 72583828, 75424551, 75783888, 58362625, 68836653, 76774728, 86736271,
+        		87533944, 86459633, 74653883, 25860056, 25254386, 84222485, 75763515, 76736252, 75639593, 85837775, 59499384, 75993455, 85739355,
+        		11245723, 88721174, 29347245, 35236682, 23588934, 23958929, 89263865, 90328111, 97297992, 19646736, 83920264, 29774627, 83749626,
+        		76388368, 65763672, 83263239, 36592743, 97238422, 88411392, 10907447, 38205723, 48500902}
 
-        for (int i = 0; i < 150; i++) {
+        for (int i = 0; i < 150; i++) { // adding first names
 
-            int dataValue = AsciiConv(students[i]) 
-            this->push(head_ref, dataValue);
+            string new_data = first[i]
+            Node* nodeNew = new Node();
+        	nodeNew->First = new_data;
+        	nodeNew->next = (*head_ref);
+        	(*head_ref) = nodeNew;
         }
+      
+        for (int i = 0; i < 150; i++) { // adding last names
+
+              string new_data = last[i] 
+              Node* nodeNew = new Node();
+        	  nodeNew->Last = new_data;
+        	  nodeNew->next = (*head_ref);
+        	  (*head_ref) = nodeNew;
+          }
+    
+      	for (int i = 0; i < 150; i++) { // adding Mnumbers
+
+            int new_data = mnumber[i]
+            Node* nodeNew = new Node();
+        	nodeNew->Mnumber = new_data;
+        	nodeNew->next = (*head_ref);
+        	(*head_ref) = nodeNew;
+        }
+      
     }
 
     int returnSize() {   //returns size of list
@@ -186,60 +206,61 @@ public:
       return tail;
     }
 
-    void push(Node** ref_head, int new_data) // add to beginning of list
-    {
-        Node* nodeNew = new Node();
-        nodeNew->data = new_data;
-        nodeNew->next = (*ref_head);
-        (*ref_head) = nodeNew;
-    }
-
     Node* getTail(Node* current)
     {
         while (current != NULL && current->next != NULL)
             current = current->next;
         return current;
     }
+    /* BUBBLE SORT BEGIN */
+    void mySwap (Node *node_1, Node *node_2){
+	    int temp = node_1->data;
+	    node_1->data = node_2 -> data;
+	    node_2 -> data = temp;
+    }
 
-    
+    void bubbleSort(Node *head){
+	    int swap;
+	    Node *lPtr; // left pointer will point to the start of the list
+	    Node *rPtr = NULL; // right pointer will point to the end of the list
+	    do{
+		    swap = 0;
+		    lPtr = head;
+		    while(lPtr->next != rPtr){
+			    if (lPtr->data > lPtr->next->data) {
+				    mySwap(lPtr, lPtr->next); //Swapping data
+				    swap = 1; 
+			    }
+			    lPtr = lPtr->next;
+		    }
+		    rPtr = lPtr;
+	    }while(swap);
+    }
+
+    /* BUBBLE SORT END */
 
     /*ISNERTION SORT BEGIN for First Name*/
-    Node* insertionsort(Node* headref)
+    void insertionsort(int key)	//key determines if first name (key = 1), last name (key = 2) or mnumber (key = 3).
     {
-        Node* sorted = NULL;
-        Node* key = headref;
-        while (key != NULL) {
-            Node* next = key->next;
-
-            int length = (len(sorted->First) < len(key->First))? len(sorted->First) : len(key->First), flag = -1;
-            for(int i = 0; i <= length; i++){
-                if (sorted->First[i] > key->first[i]){
-                    flag = 0;
-                    break;
-                }
-                else if (sorted->First[i] < key->first[i]){ 
-                    flag = 1;
-                    break;
-                }
+    	if (key == 1){ //first name basis
+          
+          Node* curr = head;
+          while(curr->next != NULL){
+            Node* temp = curr;
+            while (temp->First.compare(tme->next->First) == 1){
+            	string temp = curr->next->First;
+              	curr->First = temp;
+              	curr = curr->next;
             }
 
-            if (sorted == NULL || flag == 0) {
-                key->next = sorted;
-                sorted = key;
-            }
-            else {
-                Node* current = sorted;
-                while (current->next != NULL
-                    && flag == 1) {
-                    current = current->next;
-                }
-                key->next = current->next;
-                current->next = key;
-            }
-            key = next;
+            	  
+          }
+            		
         }
-        head = sorted;
-        return head;
+        if (key == 2){
+        }
+      	if (key == 3){
+        }
     }
     /*INSERTION SORT END*/
     // ------------------------
@@ -274,7 +295,7 @@ public:
             return p;
 
         // pick and use recursion
-        if (p->data <= r->data) {
+        if (p->data <= r->Mnumber) {
             answer = p;
             answer->next = mSorted(p->next, r);
         }
@@ -311,13 +332,30 @@ int main() {
 
     srand(unsigned(time(NULL)));
 
-   
+    /* BUBBLE SORT TEST*/
+    cout<<endl;
+    Node* r = NULL;
+
+    StudentInfo bubbleList;
+    bubbleList.populateList2(&r,s);
+    cout << "Linked List before bubble sort is: " << endl;
+    bubbleList.printList2(r);
+    cout << endl;
+
+    bubbleList.bubbleSort(r);
+
+    cout << "Bubble sorted Linked List is: " << endl;
+    bubbleList.printList2(r);
+    cout << endl<<endl;
+    
+
+    /* BUBBLE SORT END*/
     /* MERGE SORT TEST*/
 
     //Node* res = NULL;
     Node* a = NULL;
 
-    SLL mergeList;
+    StudentInfo mergeList;
     mergeList.populateList2(&a, s);
 
     cout << "Linked List before merge sort is: " << endl;
@@ -335,7 +373,7 @@ int main() {
     /*INSERTION SORT TEST*/
     Node* k = NULL;
 
-    SLL insertion;
+   StudentInfo insertion;
     insertion.populateList2(&k, s);
 
     cout << "Linked List before insertion sort is: " << endl;
@@ -350,4 +388,3 @@ int main() {
 
     return 0;
 }
-
