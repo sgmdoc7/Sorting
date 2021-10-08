@@ -96,6 +96,10 @@ public:
       return tail;
     }
 
+    void setHead(Node* r){
+      head = r;
+    }
+
     void push(Node** ref_head, int new_data) // add to beginning of list
     {
         Node* nodeNew = new Node();
@@ -499,6 +503,7 @@ int main() {
     /* COUNTING SORT TEST */
 
     SLL list;
+    list.setHead(r);
     auto t9 = Clock::now();
     list.countingSort();
     cout << "Counting sorted Linked List" << endl;
@@ -520,7 +525,9 @@ int main() {
     /*INSERTION SORT END*/
     
     //RADIX SORT TEST
+    
     SLL radix;
+    radix.setHead(r);
     
     cout << endl;
     auto t11 = Clock::now();
