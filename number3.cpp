@@ -122,92 +122,34 @@ public:
         return current;
     }
     /* BUBBLE SORT BEGIN */
-    void mySwap (Node *node_1, Node *node_2){
-	    int temp = node_1->data;
-	    node_1->data = node_2 -> data;
-	    node_2 -> data = temp;
-    }
-
-    void bubbleSort(Node *head){
-	    int swap;
-	    Node *lPtr; // left pointer will point to the start of the list
-	    Node *rPtr = NULL; // right pointer will point to the end of the list
-	    do{
-		    swap = 0;
-		    lPtr = head;
-		    while(lPtr->next != rPtr){
-			    if (lPtr->data > lPtr->next->data) {
-				    mySwap(lPtr, lPtr->next); //Swapping data
-				    swap = 1; 
-			    }
-			    lPtr = lPtr->next;
-		    }
-		    rPtr = lPtr;
-	    }while(swap);
+    void bubbleSort(){      
+      
     }
 
     /* BUBBLE SORT END */
 
     /*ISNERTION SORT BEGIN for First Name*/
-    void insertionsort(int key)	//key determines if first name (key = 1), last name (key = 2) or mnumber (key = 3).
-    {
-    	if (key == 1){ //first name basis
-          
-          Node* curr = head;
-          while(curr->next != NULL){
-            Node* temp = curr;
-            while (temp->next != NULL and temp->First.compare(temp->next->First) == 1){
-            	
-              	string tempS = temp->next->First;
-              	temp->next->First = temp->First;
-              	temp->First = tempS;
-              	
-              	temp = temp->next;
-            }
-            curr = curr->next;
-          }
-            		
-        }
-      
-        if (key == 2){
-          
-          Node* curr = head;
-          while(curr->next != NULL){
-            Node* temp = curr;
-            while (temp->next != NULL and temp->Last.compare(temp->next->Last) == 1){
-            	
-              	string tempS = temp->next->Last;
-              	temp->next->Last = temp->Last;
-              	temp->Last = tempS;
-              	
-              	temp = temp->next;
-            }
-            curr = curr->next;
-          }     
-        }
-      
-        if (key == 3){
-              
-          Node* curr = head;
-          while(curr->next != NULL){
-            Node* temp = curr;
-            while (temp->next != NULL and temp->Mnumber > temp->next->Mnumber){
-            	
-              	string tempS = temp->next->Mnumber;
-              	temp->next->Mnumber = temp->Mnumber;
-              	temp->Mnumber = tempS;
-              	
-              	temp = temp->next;
-            }
-            curr = curr->next;
-          }
+    void insertionsort()	//key determines if first name (key = 1), last name (key = 2) or mnumber (key = 3).
+    {   
+        Node* curr = head;
+        while(curr->next != NULL){
+        	Node* temp = curr;
+        	while (temp->next != NULL and temp->First.compare(temp->next->First) == 1){
+         	
+           		string tempS = temp->next->First;
+           		temp->next->First = temp->First;
+           		temp->First = tempS;
+             	
+           		temp = temp->next;
+        	}
+        	curr = curr->next;
         }
     }
     /*INSERTION SORT END*/
     // ------------------------
     /* MERGE SORT BEGIN for mNumber*/
 
-    void mergeSort(Node** refHead)
+    void mergeSortA(Node** refHead) // merge sort ascending
     {
         Node* head = *refHead;
 
@@ -218,14 +160,14 @@ public:
             return;
         }
         //Split into sublists
-        split(head, &p, &r);
-        mergeSort(&p);
-        mergeSort(&r);
+        splitA(head, &p, &r);
+        mergeSortA(&p);
+        mergeSortA(&r);
 
-        *refHead = mSorted(p, r); // two lists come together
+        *refHead = mSortedA(p, r); // two lists come together
     }
 
-    Node* mSorted(Node* p, Node* r)
+    Node* mSortedA(Node* p, Node* r)
     {
         Node* answer = NULL;
 
@@ -236,17 +178,76 @@ public:
             return p;
 
         // pick and use recursion
-        if (p->data <= r->Mnumber) {
+        if (p->Mnumber <= r->Mnumber) {
             answer = p;
-            answer->next = mSorted(p->next, r);
+            answer->next = mSortedA(p->next, r);
         }
         else {
             answer = r;
-            answer->next = mSorted(p, r->next);
+            answer->next = mSortedA(p, r->next);
         }
         return (answer);
     }
-    void split(Node* origin, Node** fRef, Node** bRef)
+    void splitA(Node* origin, Node** fRef, Node** bRef)
+    {
+        Node* rabbit;
+        Node* turtle;
+        turtle = origin;
+        rabbit = origin->next;
+
+        while (rabbit != NULL) {
+            rabbit = rabbit->next;
+            if (rabbit != NULL) {
+                turtle = turtle->next;
+                rabbit = rabbit->next;
+            }
+        }
+        //so split it in two at midpoint
+        *fRef = origin;
+        *bRef = turtle->next;
+        turtle->next = NULL;
+    }
+  
+    void mergeSortD(Node** refHead) // merge sort descending 
+    {
+        Node* head = *refHead;
+
+        Node* p;
+        Node* r;
+
+        if ((head->next == NULL) || head == NULL) {
+            return;
+        }
+        //Split into sublists
+        splitD(head, &p, &r);
+        mergeSortD(&p);
+        mergeSortD(&r);
+
+        *refHead = mSortedD(p, r); // two lists come together
+    }
+
+    Node* mSortedD(Node* p, Node* r)
+    {
+        Node* answer = NULL;
+
+
+        if (p == NULL)
+            return r;
+        else if (r == NULL)
+            return p;
+
+        // pick and use recursion
+        if (p->Mnumber >= r->Mnumber) {
+            answer = p;
+            answer->next = mSortedD(p->next, r);
+        }
+        else {
+            answer = r;
+            answer->next = mSortedD(p, r->next);
+        }
+        return (answer);
+    }
+    void splitD(Node* origin, Node** fRef, Node** bRef)
     {
         Node* rabbit;
         Node* turtle;
@@ -272,61 +273,126 @@ public:
 int main() {
 
     srand(unsigned(time(NULL)));
+    int e;
+    int g;
+  
+    cout << "How would you like the student information to be sorted?" << endl;
+    cout << "1. First name (insertion sort)" << endl;
+    cout << "2. Last name (bubble sort)" << endl;
+    cout << "3. Mnumber (merge sort)" << endl;
+    cin >> e;
+    cout << "Would you like it to be Ascending or Descending?" << endl;
+    cout << "1. Ascending" << endl;
+    cout << "2. Descending" << endl;
+    cin >> g;
+  
+    // Last Name Ascending
+    if ((e == 2) && (g == 1)){
+      /*
+        cout<<endl;
+        Node* r = NULL;
 
-    /* BUBBLE SORT TEST*/
-    cout<<endl;
-    Node* r = NULL;
+        StudentInfo bubbleList;
+        bubbleList.populateList2(&r,s);
+        cout << "Linked List before bubble sort is: " << endl;
+        bubbleList.printList2(r);
+        cout << endl;
 
-    StudentInfo bubbleList;
-    bubbleList.populateList2(&r,s);
-    cout << "Linked List before bubble sort is: " << endl;
-    bubbleList.printList2(r);
-    cout << endl;
+        bubbleList.bubbleSort(r);
 
-    bubbleList.bubbleSort(r);
+        cout << "Bubble sorted Linked List is: " << endl;
+        bubbleList.printList2(r);
+        cout << endl<<endl;
+        */
+    }
+  
+    // Last Name Descending
+    if ((e == 2) && (g == 2)){
+      /*
+        cout<<endl;
+        Node* r = NULL;
 
-    cout << "Bubble sorted Linked List is: " << endl;
-    bubbleList.printList2(r);
-    cout << endl<<endl;
+        StudentInfo bubbleList;
+        bubbleList.populateList2(&r,s);
+        cout << "Linked List before bubble sort is: " << endl;
+        bubbleList.printList2(r);
+        cout << endl;
+
+        bubbleList.bubbleSort(r);
+
+        cout << "Bubble sorted Linked List is: " << endl;
+        bubbleList.printList2(r);
+        cout << endl<<endl;
+        */
+    }
+	
+    // Mnumber Ascending
+    if ((e == 3) && (g == 1)){
+        Node* a = NULL;
+
+        StudentInfo mergeList;
+        mergeList.populateList2(&a);
+
+        mergeList.mergeSortA(&a);
+
+        cout << "Student info sorted by Mnumber: " << endl;
+        mergeList.printList2(a);
+        cout << endl;
+        cout << endl;
+    }
     
+    // Mnumber Descending
+    if ((e == 3) && (g == 2)){
+        Node* a = NULL;
 
-    /* BUBBLE SORT END*/
-    /* MERGE SORT TEST*/
+        StudentInfo mergeList;
+        mergeList.populateList2(&a);
 
-    //Node* res = NULL;
-    Node* a = NULL;
+        mergeList.mergeSortD(&a);
 
-    StudentInfo mergeList;
-    mergeList.populateList2(&a, s);
+        cout << "Student info sorted by Mnumber: " << endl;
+        mergeList.printList2(a);
+        cout << endl;
+        cout << endl;
+    }
+	
+    // First Name Ascending
+    if ((e == 1) && (g == 1)){
+      /*
+        Node* k = NULL;
 
-    cout << "Linked List before merge sort is: " << endl;
-    mergeList.printList2(a);
-    cout << endl;
+       StudentInfo insertion;
+        insertion.populateList2(&k, s);
 
-    mergeList.mergeSort(&a);
+        cout << "Linked List before insertion sort is: " << endl;
+        insertion.printList2(k);
+        cout << endl;
 
-    cout << "Merge sorted Linked List is: " << endl;
-    mergeList.printList2(a);
-    cout << endl;
-    cout << endl;
-    /* MERGE SORT END */
-    //-------------------------
-    /*INSERTION SORT TEST*/
-    Node* k = NULL;
+        Node* insertionpointer = insertion.insertionsort(k);
+        cout << "insertion sorted linked list is: " << endl;
+        insertion.printList2(insertionpointer);
+        cout << endl;
+        */
+    }
+  
+    // First Name Descending
+    if ((e == 1) && (g == 2)){
+      /*
+        Node* k = NULL;
 
-   StudentInfo insertion;
-    insertion.populateList2(&k, s);
+       StudentInfo insertion;
+        insertion.populateList2(&k, s);
 
-    cout << "Linked List before insertion sort is: " << endl;
-    insertion.printList2(k);
-    cout << endl;
+        cout << "Linked List before insertion sort is: " << endl;
+        insertion.printList2(k);
+        cout << endl;
 
-    Node* insertionpointer = insertion.insertionsort(k);
-    cout << "insertion sorted linked list is: " << endl;
-    insertion.printList2(insertionpointer);
-    cout << endl;
-    /*INSERTION SORT END*/
+        Node* insertionpointer = insertion.insertionsort(k);
+        cout << "insertion sorted linked list is: " << endl;
+        insertion.printList2(insertionpointer);
+        cout << endl;
+        */
+    }
 
     return 0;
 }
-
